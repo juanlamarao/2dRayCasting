@@ -1,4 +1,4 @@
-const TILE_SIZE = 32;
+const TILE_SIZE = 64;
 const MAP_NUM_ROWS = 11;
 const MAP_NUM_COLS = 17;
 
@@ -60,7 +60,7 @@ class Player
 	{
 		this.x = WINDOW_WIDTH / 2;
 		this.y = WINDOW_HEIGHT / 2;
-		this.radius = 3;
+		this.radius = 10;
 		this.turnDirection = 0; // -1 if left, 1 if right
 		this.walkDirection = 0; // -1 if back, 1 if front
 		this.rotationAngle = Math.PI / 2;
@@ -140,11 +140,8 @@ class Ray
         var nextHorzTouchX = xintercept;
         var nextHorzTouchY = yintercept;
 
-        if (this.isRayFacingUp)
-            nextHorzTouchY--;
-
         while (nextHorzTouchX >= 0 && nextHorzTouchX <= WINDOW_WIDTH && nextHorzTouchY >= 0 && nextHorzTouchY <= WINDOW_HEIGHT) {
-            if (grid.hasWallAt(nextHorzTouchX, nextHorzTouchY)) {
+            if (grid.hasWallAt(nextHorzTouchX, nextHorzTouchY - this.isRayFacingUp)) {
                 foundHorzWallHit = true;
                 horzWallHitX = nextHorzTouchX;
                 horzWallHitY = nextHorzTouchY;
@@ -175,11 +172,8 @@ class Ray
         var nextVertTouchX = xintercept;
         var nextVertTouchY = yintercept;
 
-        if (this.isRayFacingLeft)
-            nextVertTouchX--;
-
         while (nextVertTouchX >= 0 && nextVertTouchX <= WINDOW_WIDTH && nextVertTouchY >= 0 && nextVertTouchY <= WINDOW_HEIGHT) {
-            if (grid.hasWallAt(nextVertTouchX, nextVertTouchY)) {
+            if (grid.hasWallAt(nextVertTouchX - this.isRayFacingLeft, nextVertTouchY)) {
                 foundVertWallHit = true;
                 vertWallHitX = nextVertTouchX;
                 vertWallHitY = nextVertTouchY;
