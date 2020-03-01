@@ -87,7 +87,7 @@ class Player
 	render()
 	{
 		noStroke();
-		fill("red");
+		fill("blue");
 		circle(this.x, this.y, this.radius);
 		/*stroke("red");
 		line(
